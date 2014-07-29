@@ -48,7 +48,9 @@ def add_task
     if selected_list == item.name
       puts 'Enter a description of the new task.'
       user_description = gets.chomp
-      item.tasks << Task.new(user_description)
+      puts 'Enter a priority for the new task (1 - 5)'
+      user_priority = gets.chomp.to_i
+      item.tasks << Task.new(user_description, user_priority)
     puts "Task added."
     puts "\n\n"
     else
@@ -67,9 +69,10 @@ def list_tasks
 
     @list.each_with_index do |item, index|
     if selected_list == item.name
+      item.tasks.sort_by {|i| i.priority }#Doesn't work, does not sort
       "\n"
       item.tasks.each_with_index do |item2, index2|
-        puts item2.description
+        puts "#{item2.description} (#{item2.priority})"
       end
     else
     puts "That is not a valid list name."
