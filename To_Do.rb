@@ -17,9 +17,11 @@ def main_menu
     list_tasks
   elsif main_choice == 'x'
     puts "Goodbye"
+    exit
   else
   puts "Sorry, that wasn't a valid option."
   end
+  main_menu
 end
 
 def add_list
@@ -39,7 +41,7 @@ def list_lists
 end
 
 def add_task
-  @list.each_with_index do |item, index|
+  @list.each do |item|
     puts item.name
   end
   puts "What list would you like to add a task to?"
@@ -54,7 +56,7 @@ def add_task
     puts "Task added."
     puts "\n\n"
     else
-    puts "That is not a valid list name."
+    puts ".."
     end
     end
   main_menu
@@ -70,7 +72,6 @@ def list_tasks
     @list.each_with_index do |item, index|
     if selected_list == item.name
       item.tasks.sort_by {|i| i.priority }#Doesn't work, does not sort
-      "\n"
       item.tasks.each_with_index do |item2, index2|
         puts "#{item2.description} (#{item2.priority})"
       end
